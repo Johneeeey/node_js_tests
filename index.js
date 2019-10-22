@@ -33,30 +33,13 @@ var fs = require('fs');
 
 
 http.createServer(function(req, res) {
-    // var q = url.parse(req.url, true);
-    // var filename = '.' + q.pathname;
-    // fs.readFile(filename, function (err, data) {
-    //     if (err) {
-    //         res.writeHead(500, { 'Content-Type': 'text/html' });
-    //         return res.end("500 Server error");
-    //     }
-    //     res.writeHead(200, { "Content-Type": 'text/html' });
-    //     res.write(data);
-    //     res.end;
-    // });
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end('Hello World!');
-
-    function solve({ A, K }) {
-        if (K === 0) return A.reduce((a, b) => a + b, 0);
-
-        const r = Math.min(...A.map((el, index) => {
-            const a = [...A];
-            a[index] = -el;
-            return solve({ A: a, K: K - 1 });
-        }));
-
-        return r;
-    }
-    console.log(solve({ A: [167, -4893, -3864, 5597], K: 2, }));
+    var q = url.parse(req.url, true);
+    fs.readFile("." + q.pathname, function(err, data) {
+        if (err) {
+            console.error(err.message);
+        }
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.write(data);
+        res.end();
+    });
 }).listen(8080);
